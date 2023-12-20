@@ -13,7 +13,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { userContext, updateUserContext } = useContext(UserSessionContext)!;
+  const { userContext, updateUserContext } = useContext(UserSessionContext);
 
   async function handleSubmit(event: any) {
     event.preventDefault();
@@ -57,7 +57,7 @@ export default function LoginPage() {
       const user = data.user;
 
       updateUserContext!({
-        username: user.usernam,
+        username: user.username,
         image: user.image,
         authToken: user.token,
         isLoggedIn: true,

@@ -11,7 +11,9 @@ import { UserSessionContext } from "../../common/auth/auth-provider";
 
 export default function ArticleList() {
   const { userContext } = useContext(UserSessionContext);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+
+  console.log(userContext);
 
   const filter =
     searchParams.get("filter") ??
