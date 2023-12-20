@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Tab } from "../../models/tab";
 import {
@@ -7,15 +7,17 @@ import {
 } from "../../services/article-service";
 import { ArticlesDTO } from "../../models/article";
 import ArticlePreview from "./article-preview";
+import { UserSessionContext } from "../../common/auth/auth-provider";
 
 export default function ArticleList() {
-  // const userSession = useContext<UserSessionStore>(UserSessionContext);
-  const authToken = undefined;
+  const { userContext } = useContext(UserSessionContext);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // filter [filter, setFilter] = useState(userSession.isLoggedIn ? Tab.Your : Tab.Global);
-  const [filter, setFilter] = useState<string>(false ? Tab.Your : Tab.Global);
-  const [page, setPage] = useState(Number(searchParams.get("page") ?? 1));
+  const filter =
+    searchParams.get("filter") ??
+    (userContext.isLoggedIn ? Tab.Your : Tab.Global);
+  const page = Number(searchParams.get("page") ?? 1);
+
   const [articles, setArticles] = useState<ArticlesDTO>({
     articles: [],
     articlesCount: 0,
@@ -23,28 +25,27 @@ export default function ArticleList() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const currentfilter = searchParams.get("filter");
-    if (currentfilter) setFilter(currentfilter);
+    const filter =
+      searchParams.get("filter") ??
+      (userContext.isLoggedIn ? Tab.Your : Tab.Global);
+    const page = Number(searchParams.get("page") ?? 1);
 
-    setPage(Number(searchParams.get("page") ?? 1));
-
-    // if (filter == Tab.Your) {
-    //   return getYourArticles(
-    //     authToken,
-    //     page
-    //   );
-    // } else
-    console.log("Current Filter: " + currentfilter);
-    if (filter == Tab.Global) {
+    if (filter == Tab.Your) {
+      getYourArticles(userContext.authToken, page)
+        .then((articles) => {
+          setArticles(articles);
+        })
+        .then(() => setIsLoading(false));
+    } else if (filter == Tab.Global) {
       setIsLoading(true);
-      getGlobalArticles(null, page, authToken)
+      getGlobalArticles(null, page, userContext.authToken)
         .then((articles) => {
           setArticles(articles);
         })
         .then(() => setIsLoading(false));
     } else {
       setIsLoading(true);
-      getGlobalArticles(currentfilter, page, authToken)
+      getGlobalArticles(filter, page, userContext.authToken)
         .then((articles) => {
           setArticles(articles);
         })

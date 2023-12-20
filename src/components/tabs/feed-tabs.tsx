@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Tab } from "../../models/tab";
+import { UserSessionContext } from "../../common/auth/auth-provider";
 
 export default function FeedTabs() {
-  // const userSession = useContext<UserSessionStore>(UserSessionContext);
+  const { userContext } = useContext(UserSessionContext);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // const [tab, setTab] = useState(userSession.isLoggedIn ? Tab.Your : Tab.Global);
-  const [tab, setTab] = useState(false ? Tab.Your : Tab.Global);
+  const [tab, setTab] = useState(
+    userContext.isLoggedIn ? Tab.Your : Tab.Global
+  );
 
   useEffect(() => {
     const filter = searchParams.get("filter");
@@ -17,17 +19,17 @@ export default function FeedTabs() {
   return (
     <div className="feed-toggle">
       <ul className="nav nav-pills outline-active">
-        {/* {userSession.isLoggedIn && (
+        {userContext.isLoggedIn && (
           <li className="nav-item">
             <Link
-              class={`nav-link ${tab.value == Tab.Your && "active"}`}
-              style="cursor: pointer;"
-              href={`/?filter=${Tab.Your}`}
+              className={`nav-link ${tab == Tab.Your && "active"}`}
+              style={{ cursor: "pointer" }}
+              to={`/?filter=${Tab.Your}`}
             >
               Your Feed
             </Link>
           </li>
-        )} */}
+        )}
 
         <li className="nav-item">
           <Link

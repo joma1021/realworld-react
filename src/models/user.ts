@@ -13,3 +13,10 @@ export interface UpdateUser {
   image: string;
   password?: string;
 }
+
+export interface UserContext {
+  username: string;
+  image: string | undefined;
+  isLoggedIn: boolean;
+  authToken: string;
+}
