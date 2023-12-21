@@ -13,8 +13,6 @@ export default function ArticleList() {
   const { userContext } = useContext(UserSessionContext);
   const [searchParams] = useSearchParams();
 
-  console.log(userContext);
-
   const filter =
     searchParams.get("filter") ??
     (userContext.isLoggedIn ? Tab.Your : Tab.Global);
@@ -64,7 +62,7 @@ export default function ArticleList() {
           <div>No articles are here... yet.</div>
         ) : (
           <ul>
-            {articles!.articles.map((article) => (
+            {articles.articles.map((article) => (
               <ArticlePreview article={article} key={article.slug} />
             ))}
           </ul>

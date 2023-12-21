@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArticleData } from "../../models/article";
+import { FavoriteButtonSmall } from "../buttons/favorite-button";
 
 export default function ArticlePreview(props: { article: ArticleData }) {
   return (
@@ -17,7 +18,11 @@ export default function ArticlePreview(props: { article: ArticleData }) {
           </a>
           <span className="date">{props.article.createdAt}</span>
         </div>
-        {/* <FavoriteButtonSmall favorite={props.article.favorited} count={props.article.favoritesCount} slug={props.article.slug} /> */}
+        <FavoriteButtonSmall
+          favorite={props.article.favorited}
+          count={props.article.favoritesCount}
+          slug={props.article.slug}
+        />
       </div>
       <Link to={`/article/${props.article.slug}`} className="preview-link">
         <h1>{props.article.title}</h1>

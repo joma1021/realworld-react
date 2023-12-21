@@ -62,7 +62,6 @@ export default function LoginPage() {
         authToken: user.token,
         isLoggedIn: true,
       });
-      console.log(userContext);
       setToken(user.token);
       console.log("Login successful");
       navigate("/");
