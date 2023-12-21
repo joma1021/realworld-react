@@ -20,15 +20,15 @@ export const UserSessionContext = createContext<AuthContextType>({
 });
 
 export default function AuthProvider({ children }: PropsWithChildren) {
+  const token = getToken();
   const [userSession, setUserSession] = useState<UserContext>({
     username: "",
     image: "",
-    isLoggedIn: false,
-    authToken: "",
+    isLoggedIn: token ? true : false,
+    authToken: token ? token : "",
   });
 
   useEffect(() => {
-    const token = getToken();
     if (token)
       getCurrentUser(token)
         .then((user) =>

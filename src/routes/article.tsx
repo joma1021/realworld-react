@@ -18,9 +18,9 @@ type FavoriteState = {
 
 export default function ArticlePage() {
   const { userContext } = useContext(UserSessionContext);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
-  const [following, setFollowing] = useState(false);
+  const [following, setFollowing] = useState<boolean>(false);
   const [favoriteState, setFavoriteState] = useState<FavoriteState>({
     favorite: false,
     count: 0,
@@ -48,6 +48,7 @@ export default function ArticlePage() {
 
   if (isLoading) return <div>Loading Article...</div>;
 
+  console.log("following: " + following);
   return (
     <>
       {!article ? (

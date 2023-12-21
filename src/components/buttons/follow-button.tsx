@@ -20,9 +20,11 @@ export function FollowButton(props: FollowButtonProps) {
   const { userContext } = useContext(UserSessionContext);
   const navigate = useNavigate();
 
+  console.log("following props: " + following);
+
   useEffect(() => {
     setFollowing(props.following);
-  }, [props.following]);
+  }, [props]);
 
   async function handleOnClick() {
     if (following) {
