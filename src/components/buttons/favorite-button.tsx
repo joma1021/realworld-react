@@ -75,7 +75,7 @@ export function FavoriteButtonLarge(props: FavoriteProps) {
       onClick={
         userContext.isLoggedIn
           ? () => handleOnClick()
-          : () => navigate("/register")
+          : () => navigate("/login")
       }
     >
       <i className="ion-heart"></i>
@@ -126,7 +126,7 @@ export function FavoriteButtonSmall(props: {
         !favoriteState.favorite ? "outline-" : ""
       }primary btn-sm pull-xs-right`}
       onClick={
-        userContext.isLoggedIn ? handleOnClick : () => navigate("/register")
+        userContext.isLoggedIn ? handleOnClick : () => navigate("/login")
       }
     >
       <i className="ion-heart"></i> {favoriteState.count}

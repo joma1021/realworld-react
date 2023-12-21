@@ -5,7 +5,7 @@ import { UserSessionContext } from "../../common/auth/auth-provider";
 
 export default function FeedTabs() {
   const { userContext } = useContext(UserSessionContext);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const [tab, setTab] = useState(
     userContext.isLoggedIn ? Tab.Your : Tab.Global
@@ -13,7 +13,11 @@ export default function FeedTabs() {
 
   useEffect(() => {
     const filter = searchParams.get("filter");
-    if (filter) setTab(filter);
+    if (filter) {
+      setTab(filter);
+    } else {
+      setTab(userContext.isLoggedIn ? Tab.Your : Tab.Global);
+    }
   }, [searchParams]);
 
   return (

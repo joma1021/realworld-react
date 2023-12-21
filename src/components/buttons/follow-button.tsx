@@ -47,7 +47,7 @@ export function FollowButton(props: FollowButtonProps) {
     <button
       className={`btn btn-sm btn-${!following ? "outline-" : ""}secondary`}
       onClick={
-        userContext.isLoggedIn ? handleOnClick : () => navigate("/register")
+        userContext.isLoggedIn ? handleOnClick : () => navigate("/login")
       }
     >
       <i className="ion-plus-round"></i>
@@ -88,7 +88,7 @@ export function ActionFollowButton(props: {
         !following ? "outline-" : ""
       }secondary action-btn`}
       onClick={
-        userContext.isLoggedIn ? handleOnClick : () => navigate("/register")
+        userContext.isLoggedIn ? handleOnClick : () => navigate("/login")
       }
     >
       <i className="ion-plus-round"></i>

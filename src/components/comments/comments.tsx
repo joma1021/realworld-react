@@ -43,7 +43,6 @@ export default function Comments(props: { slug: string }) {
       comment,
       userContext.authToken
     );
-    console.log(response);
     if (!response.ok) {
       setIsLoading(false);
       return;
